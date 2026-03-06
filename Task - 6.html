@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Eco Impact Volunteer Registration</title>
+
+<style>
+
+/* ===== BODY BACKGROUND ===== */
+body{
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg, #e6f4ea, #cce3de);
+    position:relative;
+    overflow:hidden;
+}
+
+/* Decorative background circles */
+body::before{
+    content:"";
+    position:absolute;
+    width:400px;
+    height:400px;
+    background:#95d5b2;
+    border-radius:50%;
+    top:-120px;
+    left:-120px;
+    opacity:0.4;
+}
+
+body::after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:#52b788;
+    border-radius:50%;
+    bottom:-100px;
+    right:-100px;
+    opacity:0.3;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container{
+    width:900px;
+    display:flex;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.1);
+    overflow:hidden;
+    position:relative;
+    z-index:1;
+}
+
+/* ===== LEFT SECTION ===== */
+.left{
+    width:45%;
+    background:#1b4332;
+    color:white;
+    padding:50px;
+    text-align:center;   /* Only centers text */
+}
+
+
+.left h1{
+    margin-bottom:20px;
+}
+
+.left p{
+    line-height:26px;
+    font-size:14px;
+}
+
+/* ===== RIGHT SECTION ===== */
+.right{
+    width:55%;
+    padding:50px;
+    text-align:center;
+}
+
+.right h2{
+    margin-bottom:10px;
+    color:#1b4332;
+}
+
+.right p{
+    font-size:13px;
+    margin-bottom:30px;
+    color:#555;
+}
+
+/* Keep form fields left aligned */
+form{
+    text-align:left;
+}
+
+/* ===== INPUT GROUP ===== */
+.input-group{
+    position:relative;
+    margin-bottom:25px;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:14px;
+    background:none;
+    transition:0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus{
+    border-color:#1b4332;
+    outline:none;
+    box-shadow:0 0 5px rgba(27,67,50,0.3);
+}
+
+/* Floating label */
+.input-group label{
+    position:absolute;
+    top:12px;
+    left:12px;
+    color:#888;
+    font-size:13px;
+    transition:0.3s;
+    pointer-events:none;
+    background:white;
+    padding:0 5px;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label{
+    top:-8px;
+    font-size:11px;
+    color:#1b4332;
+}
+
+/* ===== CHECKBOX ===== */
+.checkbox{
+    margin-bottom:15px;
+    font-size:13px;
+}
+
+/* ===== BUTTON ===== */
+button{
+    width:100%;
+    padding:12px;
+    background:#1b4332;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#16392a;
+}
+
+/* ===== ERROR MESSAGE ===== */
+.error{
+    color:#d00000;
+    font-size:12px;
+    margin-top:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT CONTENT -->
+    <div class="left">
+        <h1>Make a Real Impact</h1>
+        <p>
+        Register to participate in environmental activities such as
+        Tree Plantation, Beach Cleaning, Plastic-Free Campaigns,
+        and NGO volunteering.
+        </p>
+        <p>
+        Small actions today create a sustainable tomorrow.
+        </p>
+    </div>
+
+    <!-- RIGHT FORM -->
+    <div class="right">
+        <h2>Volunteer Registration</h2>
+        <p>Fill in your details below to join our eco initiatives.</p>
+
+        <form onsubmit="return validateForm()">
+
+            <div class="input-group">
+                <input type="text" id="name" placeholder=" ">
+                <label>Full Name</label>
+                <div id="nameError" class="error"></div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="email" placeholder=" ">
+                <label>Email Address</label>
+                <div id="emailError" class="error"></div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="phone" placeholder=" ">
+                <label>Phone Number</label>
+                <div id="phoneError" class="error"></div>
+            </div>
+
+            <div class="input-group">
+                <select id="activity">
+                    <option value="">Select Activity</option>
+                    <option>Tree Plantation</option>
+                    <option>Beach Cleaning</option>
+                    <option>Plastic-Free Campaign</option>
+                    <option>NGO Volunteering</option>
+                </select>
+                <div id="activityError" class="error"></div>
+            </div>
+
+            <div class="checkbox">
+                <input type="checkbox" id="pledge">
+                I agree to follow environmental guidelines
+                <div id="pledgeError" class="error"></div>
+            </div>
+
+            <button type="submit">Register</button>
+
+        </form>
+    </div>
+
+</div>
+
+<script>
+function validateForm(){
+
+    var name=document.getElementById("name").value.trim();
+    var email=document.getElementById("email").value.trim();
+    var phone=document.getElementById("phone").value.trim();
+    var activity=document.getElementById("activity").value;
+    var pledge=document.getElementById("pledge").checked;
+
+    var emailPattern=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    var phonePattern=/^[0-9]{10}$/;
+
+    var valid=true;
+
+    document.getElementById("nameError").innerHTML="";
+    document.getElementById("emailError").innerHTML="";
+    document.getElementById("phoneError").innerHTML="";
+    document.getElementById("activityError").innerHTML="";
+    document.getElementById("pledgeError").innerHTML="";
+
+    if(name==""){
+        document.getElementById("nameError").innerHTML="Full name is required";
+        valid=false;
+    }
+
+    if(!email.match(emailPattern)){
+        document.getElementById("emailError").innerHTML="Enter a valid email";
+        valid=false;
+    }
+
+    if(!phone.match(phonePattern)){
+        document.getElementById("phoneError").innerHTML="Enter valid 10-digit number";
+        valid=false;
+    }
+
+    if(activity==""){
+        document.getElementById("activityError").innerHTML="Please select activity";
+        valid=false;
+    }
+
+    if(!pledge){
+        document.getElementById("pledgeError").innerHTML="You must accept the pledge";
+        valid=false;
+    }
+
+    if(valid){
+        alert("Registration Successful!");
+    }
+
+    return valid;
+}
+</script>
+
+</body>
+</html>

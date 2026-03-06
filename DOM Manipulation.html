@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrendStyle Fashion</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+
+        .card {
+            width: 350px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+            border-radius: 12px;
+        }
+
+        #offerBox {
+            width: 220px;
+            height: 60px;
+            margin: 15px auto;
+            line-height: 60px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 8px 14px;
+            margin: 6px;
+            border: none;
+            background-color: black;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        #reviews {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="brandTitle">TrendStyle Fashion</header>
+
+    <div class="card">
+        <h3 id="productName">Classic Black Dress</h3>
+        <p id="description">Elegant evening wear for special occasions.</p>
+
+        <p id="price">Price: ₹2,999</p>
+
+        <div id="offerBox">Flat 30% OFF</div>
+    </div>
+
+    <!-- Buttons -->
+    <button onclick="changeProduct()">Change Product</button>
+    <button onclick="changePrice()">Update Price</button>
+    <button onclick="highlightOffer()">Highlight Offer</button>
+    <button onclick="toggleOffer()">Hide/Show Offer</button>
+    <button onclick="addReview()">Add Customer Review</button>
+
+    <div id="reviews"></div>
+
+    <script>
+
+        function changeProduct() {
+            document.getElementById("productName").innerHTML = "Casual Summer Outfit";
+            document.getElementById("description").innerHTML = "Comfortable and stylish daily wear.";
+        }
+
+        function changePrice() {
+            document.getElementById("price").innerHTML = "Price: ₹1,999 (Discounted)";
+        }
+
+        function highlightOffer() {
+            document.getElementById("offerBox").style.backgroundColor = "black";
+            document.getElementById("offerBox").style.color = "white";
+        }
+
+        function toggleOffer() {
+            var box = document.getElementById("offerBox");
+
+            if (box.style.display == "none") {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        }
+
+        function addReview() {
+            document.getElementById("reviews").innerHTML +=
+            "<p><b>Customer Review:</b> Amazing style and perfect fit! </p>";
+        }
+
+    </script>
+
+</body>
+</html>

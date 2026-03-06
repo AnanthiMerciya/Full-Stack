@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FitLife - Fitness Tracker</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 420px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #2c5364;
+        }
+
+        input, select {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 8px 14px;
+            margin: 6px;
+            border: none;
+            border-radius: 6px;
+            background-color: #2c5364;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e3c72;
+        }
+
+        .card {
+            background-color: #f2f6ff;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .message {
+            font-weight: bold;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body onload="welcomeUser()">
+
+<div class="container">
+
+    <h1 ondblclick="changeTitle()">FitLife Tracker</h1>
+
+    <!-- CLICK EVENT -->
+    <div class="card" id="goalBox">
+        Daily Goal: 5000 Steps
+    </div>
+    <button onclick="updateGoal()">Update Goal</button>
+
+    <!-- HOVER EVENT -->
+    <div class="card"
+         id="tipBox"
+         onmouseover="showTip()"
+         onmouseout="hideTip()">
+         Hover to See Fitness Tip
+    </div>
+
+    <!-- FITNESS FORM -->
+    <form onsubmit="saveData(event)" onreset="resetForm()">
+
+        <!-- FOCUS / BLUR / KEYUP -->
+        <input type="text"
+               id="name"
+               placeholder="Enter Your Name"
+               onfocus="highlight(this)"
+               onblur="removeHighlight(this)"
+               onkeyup="typingEffect()">
+
+        <div id="typingMsg" class="message"></div>
+
+        <!-- CHANGE EVENT -->
+        <select id="activity" onchange="showActivity()">
+            <option value="">Select Activity</option>
+            <option>Running</option>
+            <option>Yoga</option>
+            <option>Gym Workout</option>
+            <option>Cycling</option>
+        </select>
+
+        <div id="activityMsg" class="message"></div>
+
+        <br>
+
+        <button type="submit">Save Progress</button>
+        <button type="reset">Reset</button>
+
+    </form>
+
+    <div id="finalMsg" class="message"></div>
+
+</div>
+
+<script>
+
+    // ONLOAD
+    function welcomeUser() {
+        alert("Welcome to FitLife Fitness Tracker 💪");
+    }
+
+    // DOUBLE CLICK
+    function changeTitle() {
+        document.querySelector("h1").innerHTML =
+        "FitLife Pro Tracker";
+    }
+
+    // CLICK
+    function updateGoal() {
+        document.getElementById("goalBox").innerHTML =
+        "Daily Goal: 8000 Steps";
+    }
+
+    // HOVER
+    function showTip() {
+        var tip = document.getElementById("tipBox");
+        tip.innerHTML = "Tip: Drink at least 2L of water daily!";
+        tip.style.backgroundColor = "#2c5364";
+        tip.style.color = "white";
+    }
+
+    function hideTip() {
+        var tip = document.getElementById("tipBox");
+        tip.innerHTML = "Hover to See Fitness Tip";
+        tip.style.backgroundColor = "#f2f6ff";
+        tip.style.color = "black";
+    }
+
+    // FOCUS
+    function highlight(element) {
+        element.style.border = "2px solid #2c5364";
+    }
+
+    // BLUR
+    function removeHighlight(element) {
+        element.style.border = "1px solid #ccc";
+    }
+
+    // KEYUP
+    function typingEffect() {
+        document.getElementById("typingMsg").innerHTML =
+        "Typing...";
+    }
+
+    // CHANGE
+    function showActivity() {
+        var activity = document.getElementById("activity").value;
+
+        document.getElementById("activityMsg").innerHTML =
+        "Selected Activity: " + activity;
+    }
+
+    // SUBMIT
+    function saveData(event) {
+        event.preventDefault();
+
+        var name = document.getElementById("name").value;
+
+        document.getElementById("finalMsg").innerHTML =
+        "Progress Saved Successfully, " + name + "!";
+    }
+
+    // RESET
+    function resetForm() {
+        document.getElementById("finalMsg").innerHTML =
+        "Form Reset Successfully.";
+        document.getElementById("typingMsg").innerHTML = "";
+        document.getElementById("activityMsg").innerHTML = "";
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindSpace • Center Perfect UI</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+  color:#334155;
+
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.container-box{
+  width:100%;
+  max-width:420px;
+}
+
+.card{
+  border-radius:16px;
+  border:1px solid #e2e8f0;
+  box-shadow:0 8px 20px rgba(0,0,0,0.05);
+  background:#ffffff;
+}
+
+h4{
+  text-align:center;
+  font-weight:600;
+  color:#1e293b;
+}
+
+.form-control{
+  border-radius:8px;
+  padding:10px;
+}
+
+.btn-primary{
+  background:#7c9cff;
+  border:none;
+  border-radius:8px;
+}
+
+.btn-success{
+  background:#86efac;
+  border:none;
+  border-radius:8px;
+  color:#065f46;
+}
+
+.link{
+  color:#2563eb;
+  cursor:pointer;
+}
+
+.hidden{
+  display:none;
+}
+
+.dashboard{
+  width:100%;
+  max-width:500px;
+}
+
+.info-box{
+  background:#f1f5f9;
+  padding:10px;
+  border-radius:10px;
+  color:#475569;
+}
+
+</style>
+</head>
+<body>
+
+<!-- AUTH BOX -->
+<div class="container-box" id="authSection">
+
+<div class="card p-4" id="registerPage">
+  <h4>Create Account</h4>
+
+  <input type="text" id="regName" class="form-control my-2" placeholder="Full Name">
+  <input type="email" id="regEmail" class="form-control my-2" placeholder="Email">
+  <input type="password" id="regPass" class="form-control my-2" placeholder="Password">
+
+  <button class="btn btn-success w-100 mt-2" onclick="register()">Register</button>
+
+  <p class="text-center mt-2">Already have account?
+    <span class="link" onclick="showLogin()">Login</span>
+  </p>
+</div>
+
+<div class="card p-4 hidden" id="loginPage">
+  <h4>Login</h4>
+
+  <input type="email" id="loginEmail" class="form-control my-2" placeholder="Email">
+  <input type="password" id="loginPass" class="form-control my-2" placeholder="Password">
+
+  <button class="btn btn-primary w-100 mt-2" onclick="login()">Login</button>
+
+  <p class="text-center mt-2">
+    <span class="link" onclick="showRegister()">Create account</span>
+  </p>
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="dashboard hidden">
+  <div class="card p-4">
+    <h4>Dashboard</h4>
+
+    <div class="info-box my-2" id="userData">
+      Click show to view
+    </div>
+
+    <button class="btn btn-outline-primary" onclick="showData()">Show</button>
+    <button class="btn btn-outline-secondary" onclick="hideData()">Hide</button>
+    <button class="btn btn-danger float-end" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<script>
+function showLogin(){
+  document.getElementById('registerPage').classList.add('hidden');
+  document.getElementById('loginPage').classList.remove('hidden');
+}
+
+function showRegister(){
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('registerPage').classList.remove('hidden');
+}
+
+function register(){
+  var name=document.getElementById('regName').value;
+  var email=document.getElementById('regEmail').value;
+  var pass=document.getElementById('regPass').value;
+
+  if(name===""||email===""||pass===""){
+    alert('Fill all fields');
+    return;
+  }
+
+  localStorage.setItem('email',email);
+  localStorage.setItem('pass',pass);
+
+  alert('Registered');
+  showLogin();
+}
+
+function login(){
+  var email=document.getElementById('loginEmail').value;
+  var pass=document.getElementById('loginPass').value;
+
+  if(email===localStorage.getItem('email') && pass===localStorage.getItem('pass')){
+    document.getElementById('authSection').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
+  } else {
+    alert('Invalid');
+  }
+}
+
+function showData(){
+  document.getElementById('userData').innerHTML='Logged in as: '+localStorage.getItem('email');
+}
+
+function hideData(){
+  document.getElementById('userData').innerHTML='Hidden';
+}
+
+function logout(){
+  document.getElementById('dashboard').classList.add('hidden');
+  document.getElementById('authSection').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

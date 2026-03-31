@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MindSpace Website</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#eef2ff,#f8fafc);
+}
+
+/* NAVBAR */
+nav{
+  background:#6366f1;
+  padding:12px;
+  text-align:center;
+}
+nav a{
+  color:white;
+  margin:0 15px;
+  text-decoration:none;
+  cursor:pointer;
+  font-weight:500;
+}
+
+/* SECTIONS */
+.section{
+  display:none;
+  padding:40px;
+}
+.active{
+  display:block;
+}
+
+/* CARD UI */
+.card-box{
+  max-width:420px;
+  margin:auto;
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* TASK */
+.task{
+  background:#e0e7ff;
+  padding:10px;
+  margin-top:6px;
+  border-radius:6px;
+  display:flex;
+  justify-content:space-between;
+}
+
+/* CENTER TEXT */
+.center{
+  text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a onclick="showSection('home')">Home</a>
+  <a onclick="showSection('register')">Register</a>
+  <a onclick="showSection('login')">Login</a>
+  <a onclick="showSection('dashboard')">Dashboard</a>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="section active center">
+  <h2>Welcome to MindSpace</h2>
+  <p>Your Personal Productivity Web App</p>
+</div>
+
+<!-- REGISTER -->
+<div id="register" class="section">
+  <div class="card-box">
+    <h4 class="center">Register</h4>
+
+    <input id="regName" class="form-control my-2" placeholder="Full Name">
+    <input id="regEmail" class="form-control my-2" placeholder="Email">
+    <input id="regPass" type="password" class="form-control my-2" placeholder="Password">
+
+    <button class="btn btn-success w-100 mt-2" onclick="register()">Register</button>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="section">
+  <div class="card-box">
+    <h4 class="center">Login</h4>
+
+    <input id="loginEmail" class="form-control my-2" placeholder="Email">
+    <input id="loginPass" type="password" class="form-control my-2" placeholder="Password">
+
+    <button class="btn btn-primary w-100 mt-2" onclick="login()">Login</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section">
+  <div class="card-box">
+    <h4 class="center">Dashboard</h4>
+
+    <!-- SHOW USER -->
+    <p id="userInfo" class="center"></p>
+
+    <!-- DOM INPUT -->
+    <input id="taskInput" class="form-control" placeholder="Enter task">
+
+    <button class="btn btn-primary w-100 mt-2" onclick="addTask()">Add Task</button>
+
+    <button class="btn btn-secondary w-100 mt-2" onclick="toggleTasks()">Show/Hide Tasks</button>
+
+    <!-- TASK LIST -->
+    <div id="taskList"></div>
+  </div>
+</div>
+
+<script>
+
+// PAGE SWITCH
+function showSection(id){
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// REGISTER
+function register(){
+  let name=regName.value;
+  let email=regEmail.value;
+  let pass=regPass.value;
+
+  if(name=="" || email=="" || pass==""){
+    alert("Fill all fields");
+    return;
+  }
+
+  localStorage.setItem("email",email);
+  localStorage.setItem("pass",pass);
+
+  alert("Registered Successfully");
+}
+
+// LOGIN
+function login(){
+  let email=loginEmail.value;
+  let pass=loginPass.value;
+
+  if(email===localStorage.getItem("email") &&
+     pass===localStorage.getItem("pass")){
+
+    userInfo.innerHTML="Welcome, "+email;
+    showSection('dashboard');
+
+  }else{
+    alert("Invalid Login");
+  }
+}
+
+// ADD TASK (DOM)
+function addTask(){
+  let task=taskInput.value;
+
+  if(task=="") return;
+
+  let div=document.createElement('div');
+  div.className="task";
+
+  div.innerHTML = task + 
+  " <button onclick='this.parentElement.remove()'>❌</button>";
+
+  taskList.appendChild(div);
+
+  taskInput.value="";
+}
+
+// SHOW / HIDE TASKS
+function toggleTasks(){
+  let list=document.getElementById("taskList");
+
+  if(list.style.display==="none"){
+    list.style.display="block";
+  }else{
+    list.style.display="none";
+  }
+}
+
+</script>
+
+</body>
+</html>
